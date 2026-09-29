@@ -14,21 +14,41 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
     if (!container) return;
 
     // Check prefers-reduced-motion
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const prefersReducedMotion = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)').matches : false;
+    let animationFrameId: number;
 
     // Scene, Camera, Renderer
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.z = 8.5;
 
-    const renderer = new THREE.WebGLRenderer({
-      alpha: true,
-      antialias: true,
-      powerPreference: 'high-performance',
-    });
-    renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-    container.appendChild(renderer.domElement);
+    let renderer: THREE.WebGLRenderer;
+    try {
+      renderer = new THREE.WebGLRenderer({
+        alpha: true,
+        antialias: true,
+        powerPreference: 'high-performance',
+      });
+      const width = container.clientWidth || 300;
+      const height = container.clientHeight || 300;
+      renderer.setSize(width, height);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      container.appendChild(renderer.domElement);
+    } catch (e) {
+      console.warn('WebGL initialization failed, falling back to CSS background', e);
+      return;
+    }
+
+    // Context loss safety
+    const handleContextLost = (event: Event) => {
+      event.preventDefault();
+      cancelAnimationFrame(animationFrameId);
+    };
+    const handleContextRestored = () => {
+      animate();
+    };
+    renderer.domElement.addEventListener('webglcontextlost', handleContextLost, false);
+    renderer.domElement.addEventListener('webglcontextrestored', handleContextRestored, false);
 
     // Color definitions based on theme
     const isDark = theme === 'dark';
@@ -186,7 +206,6 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
     window.addEventListener('resize', onResize);
 
     // Animation Loop
-    let animationFrameId: number;
     let clock = new THREE.Clock();
 
     const animate = () => {
@@ -253,6 +272,8 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
       swarmGeo.dispose();
       swarmMat.dispose();
 
+      renderer.domElement.removeEventListener('webglcontextlost', handleContextLost);
+      renderer.domElement.removeEventListener('webglcontextrestored', handleContextRestored);
       renderer.dispose();
       if (container && renderer.domElement && container.contains(renderer.domElement)) {
         container.removeChild(renderer.domElement);

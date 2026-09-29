@@ -218,12 +218,31 @@ export const LabSection: React.FC<LabSectionProps> = ({ theme }) => {
     }
   }, [synthFreq, synthType]);
 
-  // Clean audio on unmount
+  // Clean audio on unmount or tab switch
+  useEffect(() => {
+    if (activeExpId !== 'audio-synthesizer' && isSynthPlaying) {
+      if (oscRef.current) {
+        try {
+          oscRef.current.stop();
+          oscRef.current.disconnect();
+          oscRef.current = null;
+        } catch {
+          // ignore
+        }
+      }
+      setIsSynthPlaying(false);
+    }
+  }, [activeExpId, isSynthPlaying]);
+
   useEffect(() => {
     return () => {
       if (oscRef.current) {
-        oscRef.current.stop();
-        oscRef.current.disconnect();
+        try {
+          oscRef.current.stop();
+          oscRef.current.disconnect();
+        } catch {
+          // ignore
+        }
       }
     };
   }, []);
@@ -580,8 +599,10 @@ export const LabSection: React.FC<LabSectionProps> = ({ theme }) => {
                     <span>Target</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded bg-[#38BDF8]" />
-                    <span>Calculated Route ({path.length} hops)</span>
+                    <span className={`w-2.5 h-2.5 rounded ${path.length > 0 ? 'bg-[#38BDF8]' : 'bg-amber-400'}`} />
+                    <span className={path.length === 0 ? 'text-amber-400 font-semibold' : ''}>
+                      {path.length > 0 ? `Calculated Route (${path.length} hops)` : 'Route Blocked by Walls'}
+                    </span>
                   </div>
                   <div className="flex items-center gap-1.5">
                     <span className="w-2.5 h-2.5 rounded bg-slate-700" />

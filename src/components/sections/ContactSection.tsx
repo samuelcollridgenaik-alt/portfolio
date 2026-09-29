@@ -13,16 +13,47 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ theme }) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [status, setStatus] = useState<'idle' | 'submitting' | 'sent'>('idle');
 
+  const fallbackCopyText = (text: string) => {
+    try {
+      const textArea = document.createElement('textarea');
+      textArea.value = text;
+      textArea.style.position = 'fixed';
+      textArea.style.left = '-999999px';
+      document.body.appendChild(textArea);
+      textArea.focus();
+      textArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2400);
+    } catch {
+      // ignore
+    }
+  };
+
   const handleCopyEmail = () => {
     soundEngine.playClick();
-    navigator.clipboard.writeText(PERSONAL_DATA.email);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2400);
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(PERSONAL_DATA.email)
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2400);
+        })
+        .catch(() => {
+          fallbackCopyText(PERSONAL_DATA.email);
+        });
+    } else {
+      fallbackCopyText(PERSONAL_DATA.email);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) return;
+    const trimmedName = formData.name.trim();
+    const trimmedEmail = formData.email.trim();
+    const trimmedMessage = formData.message.trim();
+
+    if (!trimmedName || !trimmedEmail || !trimmedMessage) return;
 
     soundEngine.playClick();
     setStatus('submitting');
@@ -31,8 +62,8 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ theme }) => {
     setTimeout(() => {
       setStatus('sent');
       soundEngine.playBlip(680, 0.1, 'sine');
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${formData.name}`);
-      const body = encodeURIComponent(`${formData.message}\n\nFrom: ${formData.name} (${formData.email})`);
+      const subject = encodeURIComponent(`Portfolio Inquiry from ${trimmedName}`);
+      const body = encodeURIComponent(`${trimmedMessage}\n\nFrom: ${trimmedName} (${trimmedEmail})`);
       window.location.href = `mailto:${PERSONAL_DATA.email}?subject=${subject}&body=${body}`;
     }, 600);
   };

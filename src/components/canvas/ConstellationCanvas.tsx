@@ -65,6 +65,10 @@ export const ConstellationCanvas: React.FC<ConstellationCanvasProps> = ({
     const render = () => {
       const width = canvas.clientWidth;
       const height = canvas.clientHeight;
+      if (width <= 10 || height <= 10) {
+        animationFrameId = requestAnimationFrame(render);
+        return;
+      }
       const centerX = width / 2;
       const centerY = height / 2;
       const minDimension = Math.min(width, height);
