@@ -13,6 +13,7 @@ import { CertificationsSection } from './components/sections/CertificationsSecti
 import { ResumeModal } from './components/sections/ResumeModal';
 import { ContactSection } from './components/sections/ContactSection';
 import { Project, Theme } from './types/portfolio';
+import { initFaviconAnimation } from './utils/faviconAnimator';
 
 export default function App() {
   const [theme, setTheme] = useState<Theme>('dark');
@@ -23,6 +24,12 @@ export default function App() {
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [highlightedTech, setHighlightedTech] = useState<string | null>(null);
   const [activeSection, setActiveSection] = useState('hero');
+
+  // Initialize animated SCN favicon
+  useEffect(() => {
+    const cleanup = initFaviconAnimation();
+    return cleanup;
+  }, []);
 
   // Sync theme class to html/body
   useEffect(() => {
