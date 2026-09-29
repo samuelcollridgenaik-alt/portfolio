@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <!-- Background Gradient (Obsidian to Midnight) -->
+    <linearGradient id="bgGradStatic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#05070E"/>
+      <stop offset="100%" stop-color="#0A1020"/>
+    </linearGradient>
+
+    <!-- Static Gradient (Cyan to Indigo to White) -->
+    <linearGradient id="scnStaticGrad" x1="6" y1="10" x2="27" y2="21" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#38BDF8"/>
+      <stop offset="50%" stop-color="#60A5FA"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+
+    <linearGradient id="borderGradStatic" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B"/>
+      <stop offset="50%" stop-color="#0284C7" stop-opacity="0.5"/>
+      <stop offset="100%" stop-color="#1E293B"/>
+    </linearGradient>
+
+    <style>
+      @media (prefers-color-scheme: light) {
+        .bg-card {
+          fill: #060913;
+          stroke: #1E293B;
+        }
+      }
+    </style>
+  </defs>
+
+  <!-- Container -->
+  <rect class="bg-card" width="32" height="32" rx="7.5" fill="url(#bgGradStatic)"/>
+  <rect width="30" height="30" x="1" y="1" rx="6.5" fill="none" stroke="url(#borderGradStatic)" stroke-width="1"/>
+
+  <!-- Static SCN Monogram -->
+  <g fill="none" stroke="url(#scnStaticGrad)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+    <!-- S -->
+    <path d="M 11.5 10.5 H 8 A 2 2 0 0 0 6 12.5 V 13.5 A 2 2 0 0 0 8 15.5 H 9.5 A 2 2 0 0 1 11.5 17.5 V 18.5 A 2 2 0 0 1 9.5 20.5 H 6"/>
+    <!-- C -->
+    <path d="M 19 12 H 16 A 2.5 2.5 0 0 0 13.5 14.5 V 16.5 A 2.5 2.5 0 0 0 16 19 H 19"/>
+    <!-- N -->
+    <path d="M 21 20.5 V 10.5 L 26.5 20.5 V 10.5"/>
+  </g>
+
+  <!-- Steady Accent Beacon -->
+  <circle cx="26.5" cy="7.5" r="1.1" fill="#38BDF8" opacity="0.85"/>
+</svg>

@@ -7,6 +7,35 @@
     <meta name="description" content="Personal digital universe of Samuel Collridge Naik. Building software, intelligent systems, computer vision, and experimental digital experiences." />
     <meta name="author" content="Samuel Collridge Naik" />
     
+    <!-- Favicon & Brand Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" id="app-favicon" />
+    <link rel="alternate icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="alternate icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+
+    <script>
+      (function() {
+        try {
+          var motionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+          function handleReducedMotion() {
+            var icon = document.getElementById('app-favicon');
+            if (icon) {
+              icon.setAttribute('href', motionQuery.matches ? '/favicon-static.svg' : '/favicon.svg');
+            }
+          }
+          handleReducedMotion();
+          if (motionQuery.addEventListener) {
+            motionQuery.addEventListener('change', handleReducedMotion);
+          } else if (motionQuery.addListener) {
+            motionQuery.addListener(handleReducedMotion);
+          }
+        } catch (e) {
+          // Graceful fallback: defaults to static/animated SVG without throwing
+        }
+      })();
+    </script>
+    
     <!-- OpenGraph Metadata -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Samuel Collridge Naik — Developer, Builder & Creative Technologist" />
