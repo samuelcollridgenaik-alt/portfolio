@@ -62,10 +62,6 @@ export default function App() {
     sessionStorage.setItem('samuel_booted', 'true');
   };
 
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'));
-  };
-
   const handleScrollTo = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
@@ -74,9 +70,9 @@ export default function App() {
   };
 
   return (
-    <div className={`min-h-screen ${theme === 'dark' ? 'bg-[#040508] text-[#E2E8F0]' : 'bg-[#F8FAFC] text-[#0F172A]'} font-sans relative selection:bg-[#38BDF8] selection:text-black`}>
+    <div className="min-h-screen bg-[#F8F9FA] text-[#202124] dark:bg-[#040508] dark:text-[#E2E8F0] font-sans relative selection:bg-[#E8F0FE] selection:text-[#1A73E8] dark:selection:bg-[#38BDF8] dark:selection:text-black transition-colors duration-300">
       {/* Interactive adaptive cursor */}
-      <Cursor />
+      <Cursor theme={theme} />
 
       {/* Futuristic boot sequence on first visit */}
       {!isBooted && <BootSequence onComplete={handleBootComplete} />}
@@ -84,7 +80,6 @@ export default function App() {
       {/* Fixed Navigation Header */}
       <Header
         theme={theme}
-        onToggleTheme={handleToggleTheme}
         onOpenResume={() => setIsResumeOpen(true)}
         activeSection={activeSection}
       />
@@ -129,7 +124,7 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer theme={theme} />
 
       {/* Deep Case Study Modal */}
       <ProjectModal

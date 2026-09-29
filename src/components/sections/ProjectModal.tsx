@@ -69,17 +69,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 overflow-y-auto bg-black/80 backdrop-blur-md transition-opacity duration-200">
       <div
-        className="relative w-full max-w-4xl bg-[#080B14] dark:bg-[#080B14] light:bg-white text-slate-100 dark:text-slate-100 light:text-slate-900 border border-white/10 dark:border-white/10 light:border-slate-300 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col"
+        className="relative w-full max-w-4xl bg-white dark:bg-[#080B14] text-[#202124] dark:text-slate-100 border border-[#DADCE0] dark:border-white/10 rounded-2xl shadow-2xl overflow-hidden my-auto max-h-[90vh] flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header Ribbon */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/[0.08] dark:border-white/[0.08] light:border-slate-200 bg-white/[0.02]">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[#DADCE0] dark:border-white/[0.08] bg-[#F8F9FA] dark:bg-white/[0.02]">
           <div className="flex items-center gap-3">
-            <span className="font-mono text-xs font-bold text-[#38BDF8]">
+            <span className="font-mono text-xs font-bold text-[#1A73E8] dark:text-[#38BDF8]">
               PROJECT {project.number}
             </span>
-            <span aria-hidden="true" className="text-slate-600">/</span>
-            <span className="text-xs text-slate-400 uppercase tracking-wider font-mono">
+            <span aria-hidden="true" className="text-[#DADCE0] dark:text-slate-600">/</span>
+            <span className="text-xs text-[#5F6368] dark:text-slate-400 uppercase tracking-wider font-mono">
               {project.category}
             </span>
           </div>
@@ -90,7 +90,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
                 href={project.githubUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-white/[0.06] hover:bg-white/[0.12] transition-colors"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[#F1F3F4] hover:bg-[#E8EAED] text-[#202124] dark:bg-white/[0.06] dark:hover:bg-white/[0.12] dark:text-white transition-colors"
                 data-cursor="action"
               >
                 <Github className="w-3.5 h-3.5" />
@@ -102,7 +102,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
                 soundEngine.playClick();
                 onClose();
               }}
-              className="p-1.5 rounded-lg hover:bg-white/[0.08] dark:hover:bg-white/[0.08] light:hover:bg-slate-200 text-slate-400 hover:text-white transition-colors cursor-pointer"
+              className="p-1.5 rounded-lg hover:bg-[#F1F3F4] dark:hover:bg-white/[0.08] text-[#5F6368] hover:text-[#202124] dark:text-slate-400 dark:hover:text-white transition-colors cursor-pointer"
               aria-label="Close case study modal"
             >
               <X className="w-5 h-5" />
@@ -114,17 +114,17 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
         <div className="overflow-y-auto p-6 sm:p-8 space-y-8">
           {/* Title Area */}
           <div>
-            <div className="text-xs text-[#38BDF8] font-mono mb-1">{project.period}</div>
-            <h2 className="text-2xl sm:text-3xl font-display font-bold text-white dark:text-white light:text-slate-900 tracking-tight">
+            <div className="text-xs text-[#1A73E8] dark:text-[#38BDF8] font-mono mb-1">{project.period}</div>
+            <h2 className="text-2xl sm:text-3xl font-display font-bold text-[#202124] dark:text-white tracking-tight">
               {project.title}
             </h2>
-            <p className="text-sm sm:text-base text-slate-300 dark:text-slate-300 light:text-slate-600 mt-2 font-normal leading-relaxed">
+            <p className="text-sm sm:text-base text-[#3C4043] dark:text-slate-300 mt-2 font-normal leading-relaxed">
               {project.tagline}
             </p>
           </div>
 
           {/* Interactive Navigation Tabs inside Modal */}
-          <div className="flex items-center gap-2 border-b border-white/[0.08] pb-3">
+          <div className="flex items-center gap-2 border-b border-[#DADCE0] dark:border-white/[0.08] pb-3">
             <button
               onClick={() => {
                 soundEngine.playClick();
@@ -132,8 +132,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
               }}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors cursor-pointer ${
                 activeTab === 'overview'
-                  ? 'bg-[#2563EB] text-white'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#1A73E8] text-white shadow-sm'
+                  : 'text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               01. The Problem & Approach
@@ -145,8 +145,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
               }}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors cursor-pointer ${
                 activeTab === 'architecture'
-                  ? 'bg-[#2563EB] text-white'
-                  : 'text-slate-400 hover:text-white'
+                  ? 'bg-[#1A73E8] text-white shadow-sm'
+                  : 'text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] dark:text-slate-400 dark:hover:text-white'
               }`}
             >
               02. System Architecture
@@ -159,8 +159,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
                 }}
                 className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-colors cursor-pointer ${
                   activeTab === 'interactive'
-                    ? 'bg-[#38BDF8] text-slate-900 font-bold'
-                    : 'text-slate-400 hover:text-white'
+                    ? 'bg-[#1A73E8] text-white shadow-sm'
+                    : 'text-[#5F6368] hover:text-[#202124] hover:bg-[#F1F3F4] dark:text-slate-400 dark:hover:text-white'
                 }`}
               >
                 03. Live Inference Demo
@@ -172,22 +172,22 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
           {activeTab === 'overview' && (
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="bg-white/[0.03] dark:bg-white/[0.03] light:bg-slate-50 border border-white/[0.06] p-5 rounded-xl">
-                  <div className="text-xs font-mono text-rose-400 uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
+                <div className="bg-[#FCE8E6]/60 dark:bg-white/[0.03] border border-[#FAD2CF] dark:border-white/[0.06] p-5 rounded-xl">
+                  <div className="text-xs font-mono text-[#EA4335] dark:text-rose-400 uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
                     <AlertTriangle className="w-3.5 h-3.5" />
                     <span>The Challenge</span>
                   </div>
-                  <p className="text-sm text-slate-300 dark:text-slate-300 light:text-slate-700 leading-relaxed">
+                  <p className="text-sm text-[#3C4043] dark:text-slate-300 leading-relaxed">
                     {project.caseStudy.problem}
                   </p>
                 </div>
 
-                <div className="bg-white/[0.03] dark:bg-white/[0.03] light:bg-slate-50 border border-white/[0.06] p-5 rounded-xl">
-                  <div className="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
+                <div className="bg-[#E6F4EA]/60 dark:bg-white/[0.03] border border-[#CEEAD6] dark:border-white/[0.06] p-5 rounded-xl">
+                  <div className="text-xs font-mono text-[#137333] dark:text-emerald-400 uppercase tracking-wider mb-2 font-bold flex items-center gap-2">
                     <CheckCircle2 className="w-3.5 h-3.5" />
                     <span>Engineered Solution</span>
                   </div>
-                  <p className="text-sm text-slate-300 dark:text-slate-300 light:text-slate-700 leading-relaxed">
+                  <p className="text-sm text-[#3C4043] dark:text-slate-300 leading-relaxed">
                     {project.caseStudy.approach}
                   </p>
                 </div>
@@ -195,16 +195,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
 
               {/* Data & Evaluation Section */}
               <div className="space-y-4">
-                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 dark:text-slate-200 light:text-slate-800 font-mono">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#202124] dark:text-slate-200 font-mono">
                   Dataset, Evaluation & Status
                 </h3>
-                <div className="bg-white/[0.02] border border-white/[0.06] p-5 rounded-xl space-y-3 text-sm">
+                <div className="bg-[#F8F9FA] dark:bg-white/[0.02] border border-[#DADCE0] dark:border-white/[0.06] p-5 rounded-xl space-y-3 text-sm">
                   {project.caseStudy.datasetAndPreprocessing && (
                     <div>
-                      <span className="font-semibold text-white dark:text-white light:text-slate-900 block mb-1">
+                      <span className="font-semibold text-[#202124] dark:text-white block mb-1">
                         Data Preparation:
                       </span>
-                      <p className="text-slate-300 dark:text-slate-300 light:text-slate-600">
+                      <p className="text-[#3C4043] dark:text-slate-300">
                         {project.caseStudy.datasetAndPreprocessing}
                       </p>
                     </div>
@@ -212,20 +212,20 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
 
                   {project.caseStudy.evaluationData && (
                     <div>
-                      <span className="font-semibold text-white dark:text-white light:text-slate-900 block mb-1">
+                      <span className="font-semibold text-[#202124] dark:text-white block mb-1">
                         Evaluation Benchmark:
                       </span>
-                      <p className="text-slate-300 dark:text-slate-300 light:text-slate-600">
+                      <p className="text-[#3C4043] dark:text-slate-300">
                         {project.caseStudy.evaluationData}
                       </p>
                     </div>
                   )}
 
                   <div>
-                    <span className="font-semibold text-white dark:text-white light:text-slate-900 block mb-1">
+                    <span className="font-semibold text-[#202124] dark:text-white block mb-1">
                       Results & Outcomes:
                     </span>
-                    <p className="text-slate-300 dark:text-slate-300 light:text-slate-600">
+                    <p className="text-[#3C4043] dark:text-slate-300">
                       {project.caseStudy.results}
                     </p>
                   </div>
@@ -234,13 +234,13 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
 
               {/* Key Takeaways */}
               <div>
-                <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 dark:text-slate-200 light:text-slate-800 font-mono mb-3">
+                <h3 className="text-sm font-bold uppercase tracking-wider text-[#202124] dark:text-slate-200 font-mono mb-3">
                   Engineering Insights & Lessons
                 </h3>
                 <ul className="space-y-2">
                   {project.caseStudy.lessonsLearned.map((lesson, idx) => (
-                    <li key={idx} className="flex items-start gap-2.5 text-sm text-slate-300 dark:text-slate-300 light:text-slate-600">
-                      <span className="text-[#38BDF8] select-none">›</span>
+                    <li key={idx} className="flex items-start gap-2.5 text-sm text-[#3C4043] dark:text-slate-300">
+                      <span className="text-[#1A73E8] dark:text-[#38BDF8] select-none font-bold">›</span>
                       <span>{lesson}</span>
                     </li>
                   ))}
@@ -252,35 +252,35 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
           {/* Tab 2: Architecture */}
           {activeTab === 'architecture' && (
             <div className="space-y-6">
-              <h3 className="text-sm font-bold uppercase tracking-wider text-slate-200 dark:text-slate-200 light:text-slate-800 font-mono">
+              <h3 className="text-sm font-bold uppercase tracking-wider text-[#202124] dark:text-slate-200 font-mono">
                 Component Pipeline & Flow
               </h3>
               <div className="space-y-3">
                 {project.caseStudy.systemArchitecture.map((step, idx) => (
                   <div
                     key={idx}
-                    className="flex items-center gap-4 p-4 rounded-xl bg-white/[0.03] border border-white/[0.08]"
+                    className="flex items-center gap-4 p-4 rounded-xl bg-[#F8F9FA] dark:bg-white/[0.03] border border-[#DADCE0] dark:border-white/[0.08]"
                   >
-                    <div className="w-8 h-8 rounded-lg bg-[#2563EB]/20 border border-[#2563EB]/40 flex items-center justify-center text-xs font-mono font-bold text-[#38BDF8]">
+                    <div className="w-8 h-8 rounded-lg bg-[#E8F0FE] dark:bg-[#2563EB]/20 border border-[#DADCE0] dark:border-[#2563EB]/40 flex items-center justify-center text-xs font-mono font-bold text-[#1A73E8] dark:text-[#38BDF8]">
                       0{idx + 1}
                     </div>
-                    <div className="text-sm font-medium text-slate-200 dark:text-slate-200 light:text-slate-800">
+                    <div className="text-sm font-medium text-[#202124] dark:text-slate-200">
                       {step}
                     </div>
                   </div>
                 ))}
               </div>
 
-              <div className="pt-4 border-t border-white/[0.08]">
-                <div className="text-xs font-mono text-slate-400 uppercase tracking-wider mb-3">
+              <div className="pt-4 border-t border-[#DADCE0] dark:border-white/[0.08]">
+                <div className="text-xs font-mono text-[#5F6368] dark:text-slate-400 uppercase tracking-wider mb-3">
                   Verified Technology Stack
                 </div>
-                <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-slate-300 dark:text-slate-300 light:text-slate-700">
+                <div className="flex flex-wrap gap-x-4 gap-y-2 text-xs font-medium text-[#3C4043] dark:text-slate-300">
                   {project.technologies.map((tech, idx) => (
                     <span key={tech} className="flex items-center gap-2">
                       <span>{tech}</span>
                       {idx < project.technologies.length - 1 && (
-                        <span aria-hidden="true" className="text-slate-600">·</span>
+                        <span aria-hidden="true" className="text-[#DADCE0] dark:text-slate-600">·</span>
                       )}
                     </span>
                   ))}
@@ -292,16 +292,16 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
           {/* Tab 3: Interactive Demo (for Toxic Comment ML) */}
           {activeTab === 'interactive' && project.id === 'toxic-comment-detection' && (
             <div className="space-y-6">
-              <div className="bg-[#0D1220] border border-white/[0.1] p-5 rounded-xl">
+              <div className="bg-[#F8F9FA] dark:bg-[#0D1220] border border-[#DADCE0] dark:border-white/[0.1] p-5 rounded-xl">
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-mono text-[#38BDF8] uppercase tracking-wider font-semibold">
+                  <span className="text-xs font-mono text-[#1A73E8] dark:text-[#38BDF8] uppercase tracking-wider font-semibold">
                     Simulated Multilabel Model Inference Pipeline
                   </span>
-                  <span className="text-xs text-slate-400 font-mono">FASTAPI MODEL EMULATOR</span>
+                  <span className="text-xs text-[#5F6368] dark:text-slate-400 font-mono">FASTAPI MODEL EMULATOR</span>
                 </div>
 
                 <div className="space-y-3">
-                  <label htmlFor="test-comment-input" className="block text-xs text-slate-300">
+                  <label htmlFor="test-comment-input" className="block text-xs text-[#3C4043] dark:text-slate-300 font-medium">
                     Input social comment string:
                   </label>
                   <textarea
@@ -309,29 +309,29 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
                     value={testComment}
                     onChange={(e) => analyzeComment(e.target.value)}
                     rows={3}
-                    className="w-full bg-[#05070D] border border-white/20 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-[#38BDF8]"
+                    className="w-full bg-white dark:bg-[#05070D] border border-[#DADCE0] dark:border-white/20 rounded-lg p-3 text-sm text-[#202124] dark:text-white focus:outline-none focus:border-[#1A73E8] dark:focus:border-[#38BDF8] focus:ring-1 focus:ring-[#1A73E8]"
                     placeholder="Type or test a sentence..."
                   />
 
                   <div className="flex flex-wrap gap-2 text-xs">
-                    <span className="text-slate-400">Quick tests:</span>
+                    <span className="text-[#5F6368] dark:text-slate-400">Quick tests:</span>
                     <button
                       onClick={() => analyzeComment('Great work on this open source machine learning pipeline!')}
-                      className="text-[#38BDF8] hover:underline"
+                      className="text-[#1A73E8] dark:text-[#38BDF8] hover:underline"
                     >
                       "Great work..."
                     </button>
-                    <span className="text-slate-600">·</span>
+                    <span className="text-[#DADCE0] dark:text-slate-600">·</span>
                     <button
                       onClick={() => analyzeComment('This is terrible, awful and completely stupid.')}
-                      className="text-rose-400 hover:underline"
+                      className="text-[#EA4335] dark:text-rose-400 hover:underline"
                     >
                       "Toxic sample..."
                     </button>
-                    <span className="text-slate-600">·</span>
+                    <span className="text-[#DADCE0] dark:text-slate-600">·</span>
                     <button
                       onClick={() => analyzeComment('Stop talking or I will kill your progress.')}
-                      className="text-amber-400 hover:underline"
+                      className="text-[#B06000] dark:text-amber-400 hover:underline"
                     >
                       "Threat sample..."
                     </button>
@@ -339,21 +339,21 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
                 </div>
 
                 {/* Score meters */}
-                <div className="mt-6 pt-5 border-t border-white/[0.08] grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <div className="mt-6 pt-5 border-t border-[#DADCE0] dark:border-white/[0.08] grid grid-cols-2 sm:grid-cols-3 gap-4">
                   {Object.entries(simulatedScores).map(([label, score]) => {
                     const isAlert = score > 0.4;
                     return (
-                      <div key={label} className="bg-white/[0.02] p-3 rounded-lg border border-white/[0.05]">
+                      <div key={label} className="bg-white dark:bg-white/[0.02] p-3 rounded-lg border border-[#DADCE0] dark:border-white/[0.05] shadow-xs">
                         <div className="flex justify-between items-center text-xs mb-1">
-                          <span className="capitalize text-slate-300 font-mono">{label}</span>
-                          <span className={`font-mono font-bold ${isAlert ? 'text-rose-400' : 'text-slate-400'}`}>
+                          <span className="capitalize text-[#3C4043] dark:text-slate-300 font-mono">{label}</span>
+                          <span className={`font-mono font-bold ${isAlert ? 'text-[#EA4335] dark:text-rose-400' : 'text-[#5F6368] dark:text-slate-400'}`}>
                             {(score * 100).toFixed(0)}%
                           </span>
                         </div>
-                        <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                        <div className="w-full bg-[#E8EAED] dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
                           <div
                             className={`h-full transition-all duration-200 ${
-                              isAlert ? 'bg-rose-500' : 'bg-[#38BDF8]'
+                              isAlert ? 'bg-[#EA4335]' : 'bg-[#1A73E8] dark:bg-[#38BDF8]'
                             }`}
                             style={{ width: `${Math.max(score * 100, 2)}%` }}
                           />
@@ -368,14 +368,14 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, th
         </div>
 
         {/* Footer info */}
-        <div className="px-6 py-4 border-t border-white/[0.08] dark:border-white/[0.08] light:border-slate-200 bg-white/[0.02] flex items-center justify-between text-xs text-slate-400 font-mono">
+        <div className="px-6 py-4 border-t border-[#DADCE0] dark:border-white/[0.08] bg-[#F8F9FA] dark:bg-white/[0.02] flex items-center justify-between text-xs text-[#5F6368] dark:text-slate-400 font-mono">
           <span>STATUS: {project.status}</span>
           <button
             onClick={() => {
               soundEngine.playClick();
               onClose();
             }}
-            className="px-4 py-2 bg-white/[0.08] hover:bg-white/[0.15] text-white rounded-lg transition-colors cursor-pointer"
+            className="px-4 py-2 bg-[#F1F3F4] hover:bg-[#E8EAED] text-[#202124] dark:bg-white/[0.08] dark:hover:bg-white/[0.15] dark:text-white rounded-lg transition-colors cursor-pointer border border-[#DADCE0] dark:border-transparent"
           >
             Close View
           </button>

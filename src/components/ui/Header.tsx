@@ -1,18 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Volume2, VolumeX, Moon, Sun, FileText, Menu, X } from 'lucide-react';
+import { Volume2, VolumeX, FileText, Menu, X } from 'lucide-react';
 import { Theme } from '../../types/portfolio';
 import { soundEngine } from '../../utils/soundEngine';
 
 interface HeaderProps {
-  theme: Theme;
-  onToggleTheme: () => void;
+  theme?: Theme;
   onOpenResume: () => void;
   activeSection: string;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   theme,
-  onToggleTheme,
   onOpenResume,
   activeSection,
 }) => {
@@ -54,7 +52,7 @@ export const Header: React.FC<HeaderProps> = ({
     <header
       className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? 'bg-[#040508]/80 dark:bg-[#040508]/80 light:bg-[#f8fafc]/80 backdrop-blur-md border-b border-white/[0.08] dark:border-white/[0.08] light:border-slate-200'
+          ? 'bg-white/90 dark:bg-[#040508]/85 backdrop-blur-md border-b border-[#DADCE0] dark:border-white/[0.08] shadow-[0_1px_3px_rgba(60,64,67,0.08)]'
           : 'bg-transparent border-b border-transparent'
       }`}
     >
@@ -66,7 +64,7 @@ export const Header: React.FC<HeaderProps> = ({
             e.preventDefault();
             handleNavClick('#hero');
           }}
-          className="text-lg font-bold tracking-tight text-white dark:text-white light:text-slate-900 font-display hover:text-[#38BDF8] transition-colors"
+          className="text-lg font-bold tracking-tight text-[#202124] dark:text-white font-display hover:text-[#1A73E8] dark:hover:text-[#38BDF8] transition-colors"
           data-cursor="action"
         >
           SAMUEL
@@ -87,14 +85,14 @@ export const Header: React.FC<HeaderProps> = ({
                 onMouseEnter={() => soundEngine.playHover()}
                 className={`transition-colors py-1 relative ${
                   isActive
-                    ? 'text-[#38BDF8] font-semibold'
-                    : 'text-slate-300 dark:text-slate-300 light:text-slate-600 hover:text-white dark:hover:text-white light:hover:text-slate-900'
+                    ? 'text-[#1A73E8] dark:text-[#38BDF8] font-semibold'
+                    : 'text-[#5F6368] dark:text-slate-300 hover:text-[#202124] dark:hover:text-white'
                 }`}
                 data-cursor="action"
               >
                 {item.label}
                 {isActive && (
-                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#38BDF8] rounded-full" />
+                  <span className="absolute bottom-0 left-0 right-0 h-[2px] bg-[#1A73E8] dark:bg-[#38BDF8] rounded-full" />
                 )}
               </a>
             );
@@ -108,24 +106,10 @@ export const Header: React.FC<HeaderProps> = ({
             onClick={handleToggleSound}
             aria-label={isMuted ? 'Enable sound synthesizer' : 'Mute sound'}
             title={isMuted ? 'Sound: Muted (Click to enable)' : 'Sound: Enabled'}
-            className="p-2 rounded-lg text-slate-400 hover:text-white dark:hover:text-white light:hover:text-slate-900 hover:bg-white/[0.06] transition-colors"
+            className="p-2 rounded-lg text-[#5F6368] dark:text-slate-400 hover:text-[#202124] dark:hover:text-white hover:bg-[#F1F3F4] dark:hover:bg-white/[0.06] transition-colors cursor-pointer"
             data-cursor="action"
           >
-            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#38BDF8]" />}
-          </button>
-
-          {/* Theme toggle */}
-          <button
-            onClick={() => {
-              soundEngine.playClick();
-              onToggleTheme();
-            }}
-            aria-label="Toggle dark/light theme"
-            title="Toggle theme"
-            className="p-2 rounded-lg text-slate-400 hover:text-white dark:hover:text-white light:hover:text-slate-900 hover:bg-white/[0.06] transition-colors"
-            data-cursor="action"
-          >
-            {theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}
+            {isMuted ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4 text-[#1A73E8] dark:text-[#38BDF8]" />}
           </button>
 
           {/* Resume quick action */}
@@ -134,7 +118,7 @@ export const Header: React.FC<HeaderProps> = ({
               soundEngine.playClick();
               onOpenResume();
             }}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#2563EB] hover:bg-[#1D4ED8] rounded-lg transition-colors whitespace-nowrap"
+            className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-white bg-[#1A73E8] hover:bg-[#174EA6] rounded-lg transition-colors whitespace-nowrap cursor-pointer shadow-sm"
             data-cursor="action"
           >
             <FileText className="w-3.5 h-3.5" />
@@ -145,7 +129,7 @@ export const Header: React.FC<HeaderProps> = ({
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             aria-label="Toggle mobile menu"
-            className="md:hidden p-2 rounded-lg text-slate-300 hover:text-white"
+            className="md:hidden p-2 rounded-lg text-[#3C4043] dark:text-slate-300 hover:text-[#202124] dark:hover:text-white"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
@@ -154,7 +138,7 @@ export const Header: React.FC<HeaderProps> = ({
 
       {/* Mobile nav drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-[#07090E]/95 dark:bg-[#07090E]/95 light:bg-white/95 backdrop-blur-xl border-b border-white/[0.08] px-6 py-5 flex flex-col gap-4">
+        <div className="md:hidden bg-white/95 dark:bg-[#07090E]/95 backdrop-blur-xl border-b border-[#DADCE0] dark:border-white/[0.08] px-6 py-5 flex flex-col gap-4 shadow-lg">
           {navItems.map((item) => (
             <a
               key={item.id}
@@ -163,7 +147,7 @@ export const Header: React.FC<HeaderProps> = ({
                 e.preventDefault();
                 handleNavClick(item.href);
               }}
-              className="text-base font-medium text-slate-200 dark:text-slate-200 light:text-slate-800 py-1"
+              className="text-base font-medium text-[#202124] dark:text-slate-200 py-1"
             >
               {item.label}
             </a>

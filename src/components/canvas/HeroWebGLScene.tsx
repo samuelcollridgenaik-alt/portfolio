@@ -18,9 +18,10 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
     let animationFrameId: number;
 
     // Scene, Camera, Renderer
+    const isMobileInitial = container.clientWidth < 768;
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(50, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.z = 8.5;
+    camera.position.z = isMobileInitial ? 13.0 : 8.5;
 
     let renderer: THREE.WebGLRenderer;
     try {
@@ -52,14 +53,22 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
 
     // Color definitions based on theme
     const isDark = theme === 'dark';
-    const coreColor = isDark ? 0x38bdf8 : 0x0284c7;
-    const wireColor = isDark ? 0x818cf8 : 0x3b82f6;
-    const particleColor = isDark ? 0x38bdf8 : 0x2563eb;
-    const ringColor = isDark ? 0x6366f1 : 0x4f46e5;
+    const coreColor = isDark ? 0x38bdf8 : 0x1a73e8; // Google Blue
+    const wireColor = isDark ? 0x818cf8 : 0x4285f4; // Google Blue light
+    const particleColor = isDark ? 0x38bdf8 : 0x34a853; // Google Green
+    const ringColor1 = isDark ? 0x6366f1 : 0xea4335; // Google Red accent
+    const ringColor2 = isDark ? 0x38bdf8 : 0xfbbc04; // Google Yellow accent
 
     // 1. Central Core Geometry: Nested Icosahedron Wireframe & Points
     const coreGroup = new THREE.Group();
     scene.add(coreGroup);
+
+    // Initial scale & position calibration for mobile vs desktop
+    const initialScale = isMobileInitial ? 0.68 : 1.0;
+    coreGroup.scale.set(initialScale, initialScale, initialScale);
+    if (isMobileInitial) {
+      coreGroup.position.y = 0.6;
+    }
 
     // Outer wireframe cage
     const outerGeo = new THREE.IcosahedronGeometry(2.4, 2);
@@ -67,7 +76,7 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
       color: wireColor,
       wireframe: true,
       transparent: true,
-      opacity: isDark ? 0.35 : 0.45,
+      opacity: isDark ? 0.35 : 0.55,
     });
     const outerMesh = new THREE.Mesh(outerGeo, outerMat);
     coreGroup.add(outerMesh);
@@ -80,7 +89,7 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
       metalness: 0.8,
       wireframe: true,
       emissive: coreColor,
-      emissiveIntensity: isDark ? 0.4 : 0.2,
+      emissiveIntensity: isDark ? 0.4 : 0.25,
     });
     const innerMesh = new THREE.Mesh(innerGeo, innerMat);
     coreGroup.add(innerMesh);
@@ -88,23 +97,27 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
     // Floating vertices
     const vertexPointsGeo = new THREE.IcosahedronGeometry(2.4, 2);
     const vertexPointsMat = new THREE.PointsMaterial({
-      color: 0xffffff,
-      size: 0.05,
+      color: isDark ? 0xffffff : 0x1a73e8,
+      size: isDark ? 0.05 : 0.065,
       transparent: true,
-      opacity: isDark ? 0.8 : 0.6,
+      opacity: isDark ? 0.8 : 0.85,
     });
     const vertexPoints = new THREE.Points(vertexPointsGeo, vertexPointsMat);
     coreGroup.add(vertexPoints);
 
     // 2. Orbital Element Rings
     const ringGroup = new THREE.Group();
+    ringGroup.scale.set(initialScale, initialScale, initialScale);
+    if (isMobileInitial) {
+      ringGroup.position.y = 0.6;
+    }
     scene.add(ringGroup);
 
     const ring1Geo = new THREE.TorusGeometry(3.6, 0.015, 16, 100);
     const ring1Mat = new THREE.MeshBasicMaterial({
-      color: ringColor,
+      color: ringColor1,
       transparent: true,
-      opacity: isDark ? 0.4 : 0.5,
+      opacity: isDark ? 0.4 : 0.6,
     });
     const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
     ring1.rotation.x = Math.PI / 3;
@@ -113,9 +126,9 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
 
     const ring2Geo = new THREE.TorusGeometry(4.2, 0.012, 16, 100);
     const ring2Mat = new THREE.MeshBasicMaterial({
-      color: coreColor,
+      color: ringColor2,
       transparent: true,
-      opacity: isDark ? 0.3 : 0.4,
+      opacity: isDark ? 0.3 : 0.55,
     });
     const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
     ring2.rotation.x = -Math.PI / 4;
@@ -198,8 +211,18 @@ export const HeroWebGLScene: React.FC<HeroWebGLSceneProps> = ({ theme }) => {
       if (!container) return;
       const width = container.clientWidth;
       const height = container.clientHeight;
+      const isMobileNow = width < 768;
+
       camera.aspect = width / height;
+      camera.position.z = isMobileNow ? 13.0 : 8.5;
       camera.updateProjectionMatrix();
+
+      const currentScale = isMobileNow ? 0.68 : 1.0;
+      coreGroup.scale.set(currentScale, currentScale, currentScale);
+      ringGroup.scale.set(currentScale, currentScale, currentScale);
+      coreGroup.position.y = isMobileNow ? 0.6 : 0;
+      ringGroup.position.y = isMobileNow ? 0.6 : 0;
+
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     };
